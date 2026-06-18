@@ -29,7 +29,7 @@ function ServicesPage() {
 
       <section className="section">
         <div className="container-x">
-          <Reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+          <Reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.00}>
             {services.map((s, i) => (
               <motion.article
                 key={s.title}

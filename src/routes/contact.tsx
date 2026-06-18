@@ -93,7 +93,7 @@ function ContactPage() {
             </form>
           </Reveal>
 
-          <Reveal className="space-y-6" stagger={0.1}>
+          <Reveal className="space-y-6" stagger={0.00}>
             <div className="card-surface bg-[var(--ink)] text-white">
               <p className="eyebrow text-[var(--electric-glow)]">Direct contact</p>
               <ul className="mt-6 space-y-5 text-sm">

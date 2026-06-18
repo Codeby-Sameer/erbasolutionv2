@@ -32,7 +32,7 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <MorphingText texts={["Hello", "World"]}  />
+      <MorphingText texts={["Hello", "World"]} />
       <Intro />
       <Stats />
       <ServicesPreview />
@@ -164,12 +164,12 @@ function ServicesPreview() {
             View All Services <ArrowRight size={16} />
           </Link>
         </div>
-          
-      </div>
-              <Reveal stagger={0.06}>
 
-          <Marquee3D/>
-          </Reveal>
+      </div>
+      <Reveal stagger={0.06}>
+
+        <Marquee3D />
+      </Reveal>
     </section>
   );
 }
@@ -233,7 +233,9 @@ function WhyChooseUs() {
             Six reasons leading teams partner with Erba.
           </h2>
         </Reveal>
-        <Reveal className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-border md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+        <Reveal stagger={0.0001}>
+
+
           {whyChooseUs.map((w, i) => (
             <div
               key={w.title}
@@ -249,6 +251,7 @@ function WhyChooseUs() {
             </div>
           ))}
         </Reveal>
+
       </div>
     </section>
   );

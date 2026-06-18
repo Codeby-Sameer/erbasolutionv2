@@ -69,7 +69,7 @@ function AboutPage() {
 
       <section className="section bg-[var(--paper)]">
         <div className="container-x">
-          <Reveal className="grid gap-6 lg:grid-cols-3" stagger={0.1}>
+          <Reveal className="grid gap-6 lg:grid-cols-3" stagger={0.0}>
             {pillars.map((p, i) => (
               <motion.div
                 key={p.label}

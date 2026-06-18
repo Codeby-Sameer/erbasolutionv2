@@ -29,7 +29,7 @@ function CareersPage() {
 
       <section className="section">
         <div className="container-x">
-          <Reveal className="grid gap-6 md:grid-cols-2" stagger={0.08}>
+          <Reveal className="grid gap-6 md:grid-cols-2" stagger={0.00}>
             {careerPrograms.map((p, i) => (
               <motion.article
                 key={p.title}

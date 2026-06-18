@@ -28,7 +28,7 @@ function IndustriesPage() {
 
       <section className="section">
         <div className="container-x">
-          <Reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
+          <Reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.00}>
             {industries.map((ind, i) => (
               <motion.article
                 key={ind.title}
