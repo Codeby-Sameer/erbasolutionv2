@@ -43,17 +43,17 @@ export function Nav() {
           <img src={Logo} alt="Erba Solutions Logo" className="md:h-20  h-16 w-auto object-contain" />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-12 lg:flex">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="group relative text-sm font-medium text-white/80 transition hover:text-white"
+              className="group relative text-sm px-3 font-medium text-white/80 transition hover:text-white hover:rounded-full hover:bg-[var(--electric)] hover:px-3 hover:transition-all hover:py-2"
               activeProps={{ className: "text-white" }}
               activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-[var(--electric)] transition-all duration-300 group-hover:w-full data-[status=active]:w-full" />
+              {/* <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-[var(--electric)] transition-all duration-300 group-hover:w-full data-[status=active]:w-full" /> */}
             </Link>
           ))}
         </nav>

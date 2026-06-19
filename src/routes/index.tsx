@@ -32,7 +32,7 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <MorphingText texts={["Hello", "World"]} />
+      <MorphingText texts={["Best IT Staffing", "IN AMERICA"]} />
       <Intro />
       <Stats />
       <ServicesPreview />
@@ -46,6 +46,7 @@ function HomePage() {
 }
 
 function Hero() {
+ 
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -53,18 +54,48 @@ function Hero() {
   useEffect(() => {
     const h = headlineRef.current;
     if (!h) return;
-    const words = h.innerText.split(" ");
-    h.innerHTML = words
-      .map((w) => `<span class="inline-block overflow-hidden align-bottom"><span class="word inline-block">${w}</span></span>`)
-      .join(" ");
-    const wordEls = h.querySelectorAll(".word");
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.from(wordEls, { yPercent: 110, duration: 0.9, stagger: 0.06 })
-      .from(subRef.current, { opacity: 0, y: 20, duration: 0.7 }, "-=0.5")
-      .from(ctaRef.current?.children ?? [], { opacity: 0, y: 16, duration: 0.6, stagger: 0.1 }, "-=0.4");
-    return () => { tl.kill(); };
+
+    // gsap.context() scopes all tweens; ctx.revert() undoes
+    // inline styles on cleanup — prevents opacity:0 ghost state
+    const ctx = gsap.context(() => {
+
+      // Clear any leftover inline styles from a previous mount
+      gsap.set([subRef.current, ctaRef.current], { clearProps: "all" });
+
+      // ✅ Normalize whitespace before splitting — fixes "Talent.Driving"
+      const words = h.innerText
+        .trim()
+        .replace(/\s+/g, " ")
+        .split(" ")
+        .filter(Boolean);
+
+      h.innerHTML = words
+        .map(
+          (w) =>
+            `<span class="inline-block overflow-hidden align-bottom">` +
+            `<span class="word inline-block">${w}</span></span>`
+        )
+        .join(" ");
+
+      const wordEls = h.querySelectorAll<HTMLElement>(".word");
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.from(wordEls, { yPercent: 110, duration: 0.9, stagger: 0.06 })
+        .from(subRef.current, { opacity: 0, y: 20, duration: 0.7 }, "-=0.5")
+        .from(
+          ctaRef.current?.children ?? [],
+          { opacity: 0, y: 16, duration: 0.6, stagger: 0.1 },
+          "-=0.4"
+        );
+    });
+
+    // ✅ ctx.revert() resets all GSAP inline styles to their original values
+    // so sub/buttons are visible again on next route visit
+    return () => ctx.revert();
   }, []);
 
+  // rest of JSX unchanged...
   return (
     <section className="relative min-h-screen overflow-hidden bg-[var(--ink)] text-white">
       <HeroNetwork />
@@ -151,16 +182,16 @@ function Stats() {
 
 function ServicesPreview() {
   return (
-    <section className="section bg-[var(--paper)]">
+    <section className="section overflow-hidden bg-[var(--ink)] text-white">
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <Reveal>
-            <p className="eyebrow text-[var(--electric)]">What we do</p>
+            <p className="eyebrow text-[var(--electric-glow)]">What we do</p>
             <h2 className="mt-4 max-w-2xl text-balance text-4xl font-bold leading-tight lg:text-5xl">
               Staffing and consulting built for speed and quality.
             </h2>
           </Reveal>
-          <Link to="/services" className="btn-ghost text-foreground">
+          <Link to="/services" className="btn-ghost border-white/20 text-white hover:border-white/35">
             View All Services <ArrowRight size={16} />
           </Link>
         </div>
@@ -233,9 +264,7 @@ function WhyChooseUs() {
             Six reasons leading teams partner with Erba.
           </h2>
         </Reveal>
-        <Reveal stagger={0.0001}>
-
-
+        <Reveal className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-border md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
           {whyChooseUs.map((w, i) => (
             <div
               key={w.title}
@@ -251,12 +280,10 @@ function WhyChooseUs() {
             </div>
           ))}
         </Reveal>
-
       </div>
     </section>
   );
 }
-
 function IndustriesStrip() {
   return (
     <section className="border-y bg-[var(--paper)] py-16">

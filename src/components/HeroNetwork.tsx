@@ -45,7 +45,7 @@ export function HeroNetwork() {
       aria-hidden
     >
       {/* Ambient glows */}
-      <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-[var(--electric)] opacity-20 blur-3xl" />
+      <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-[var(--electric)] opacity-30 blur-3xl" />
       <div className="absolute -right-24 bottom-0 h-[28rem] w-[28rem] rounded-full bg-[var(--amber)] opacity-10 blur-3xl" />
 
       <motion.div
@@ -81,14 +81,14 @@ export function HeroNetwork() {
               strokeWidth={1}
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 1.4, delay: 0.4 + i * 0.04, ease: "easeOut" }}
+              transition={{ duration: 1.4, delay: 0.4 + i * 0.04, ease: "easeInOut" }}
             />
           ))}
           {nodes.map((n, i) => (
             <motion.g
               key={i}
               animate={reduce ? {} : { y: [0, -6, 0] }}
-              transition={{ duration: 4 + (i % 5), repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+              transition={{ duration: 4 + (i % 5), repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
             >
               <circle cx={n.x} cy={n.y} r={18} fill="url(#nodeGrad)" opacity={0.6} />
               <motion.circle
@@ -96,7 +96,7 @@ export function HeroNetwork() {
                 fill="#FFFFFF"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.6 + i * 0.05, type: "spring", stiffness: 200 }}
+                transition={{ delay: 0.6 + i * 0.05, type: "spring", stiffness: 200, }}
               />
             </motion.g>
           ))}
